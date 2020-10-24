@@ -12,21 +12,21 @@
     <script src="socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="layout.css"/>
     <script>
-        var socket = io("http://localhost:3000");
-        socket.on("Server-send-data", function (data) {
-            $('#noidung').append(data + "<br>");
-            var x1 = document.getElementById("myAudio");
-            x1.play();
-        });
-        socket.on("Server-send-mau", function (data) {
-            $('body').attr("bgColor", data);
-            //var x1 = document.getElementById("myAudio"); 
-            //  x1.play(); 
-        })
+   
       
     </script>
 </head>
 <body>
+    <div id="wrapper">
+        <div id="loginForm">
+            <h1>WHAT 'S YOUR NAME?</h1>
+            <input type="text" id="txtUsername"/>
+            <input type="button" value="Register" id="btnRegister"/>
+        </div>
+        <div id="chatForm">
+
+        </div>
+    </div>
 </body>
 
 
