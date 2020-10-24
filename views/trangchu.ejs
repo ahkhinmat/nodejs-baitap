@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style>
+            #do,#xanh,#vang{
+                width: 300px;
+                height: 70px;
+               
+            }
+            #do{
+                background-color: red;
+            }
+            #xanh{
+                background-color: green;
+            }
+            #vang{
+                background-color: yellow;
+            }
+        </style>
+        <script src="jquery.js"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <script>
+            var socket=io("http://localhost:3000");
+            socket.on("Server-send-data",function(data){
+                $('#noidung').append(data+"<br>");
+                var x1 = document.getElementById("myAudio"); 
+		        x1.play(); 
+            });
+            socket.on("Server-send-mau",function(data){
+                $('body').attr("bgColor",data);
+                //var x1 = document.getElementById("myAudio"); 
+		      //  x1.play(); 
+            })
+            $(document).ready(function(){
+               $("#mrA").click(function(){
+                   socket.emit("Client-send-data","hello");
+               });
+               $("#do").click(function(){
+                   socket.emit("Client-send-mau","red");
+               })
+               $("#xanh").click(function(){
+                   socket.emit("Client-send-mau","green");
+               })
+               $("#vang").click(function(){
+                   socket.emit("Client-send-mau","yellow");
+               })
+            })
+        </script>
+    </head>
+<h1>demo ejs</h1>
+<h2 id="noidung"></h2>
+<button  id="mrA">Click send</button>
+<div id="do"></div>
+<div id="xanh"></div>
+<div id="vang"></div>
+<audio id="myAudio">
+			<source src="bell-ringing-05.mp3" type="audio/mp3">
+		</audio>
+</html>
