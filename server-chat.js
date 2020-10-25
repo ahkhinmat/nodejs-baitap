@@ -8,8 +8,10 @@ server.listen(3000);
 var io=require("socket.io")(server);
 var mangUers=[];
 io.on("connection",function(socket){
+    // show ds room đang có 
+    
     console.log("có người kết nối "+ socket.id);
-
+    console.dir(socket.adapter.rooms);
     socket.on("Client-send-username",function(data){
         console.log(data);
         if(mangUers.indexOf(data)>=0){
@@ -45,6 +47,10 @@ io.on("connection",function(socket){
         io.sockets.emit("ai-do-stop-go-chu",s);
        // io.sockets.emit("server-send-message",{un:socket.Username,nd:data});
     });
+    socket.on("tao-room",function(data){
+         socket.join(data);
+         console.dir(socket.adapter.rooms);
+    })
 })
 app.get("/",function(rep,res){
     res.render("chat");

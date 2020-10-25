@@ -42,5 +42,8 @@ $(document).ready(function () {
         })
         $("#txtMessage").focusout(function(){
             socket.emit("toi-stop-go-chu");
+        });
+        $("#btnTaoroom").click(function(){
+            socket.emit("tao-room",$("#txtRoom").val());
         })
 })
