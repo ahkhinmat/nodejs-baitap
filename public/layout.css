@@ -33,3 +33,17 @@ margin: auto;
     background-color: transparent;
     border: solid 1px blue;
 }
+#trai{
+    width:20%;
+    float:left;
+    background-color: cadetblue;
+    border: solid 1 px black;
+    height: 100px;
+}
+#phai{
+    width:80%;
+    float: right;
+}
+#roomHienTai{
+    background-color: darkgoldenrod;
+}
