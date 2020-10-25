@@ -6,7 +6,7 @@ app.set("views","./views");
 var server=require("http").Server(app);
 server.listen(3000);
 var io=require("socket.io")(server);
-var mangUers=["AAA"];
+var mangUers=[];
 io.on("connection",function(socket){
     console.log("có người kết nối "+ socket.id);
 
@@ -19,26 +19,32 @@ io.on("connection",function(socket){
             socket.Username=data;
             mangUers.push(data);
             socket.emit("server-send-dangky-thanhcong",data);//thông báo riêng người thành công
+            //thông báo cho tất cả mảng user online
             io.sockets.emit("server-send-danhsach-users",mangUers);
         }
+    })
+    socket.on("logout",function(){
+        mangUers.splice(mangUers.indexOf(mangUers.Username),1);
+        socket.broadcast.emit("server-send-danhsach-users",mangUers);
     })
     socket.on("disconnect",function(){
         console.log(socket.id+" Ngắt kết nối");
     });
-    socket.on("Client-send-data",function(data){
-        console.log( socket.id+ " gởi "+data);//client gởi
-        //máy chủ thông báo đến tất cả: io.sockets.emit
-        //io.sockets.emit("Server-send-data",data+ "- gởi tất cả");
-        //máy chủ chỉ  phát thông báo cho nơi gởi đến
-        //socket.emit("Server-send-data",data+ "- chỉ nơi gọi");
-        //máy chủ  phát thông báo cho tất cả trừ nơi gởi đến
-        socket.broadcast.emit("Server-send-data",data+ "-đến tất cả trừ nơi gọi");
 
-    });
-    socket.on("Client-send-mau",function(data){
-        console.log(data);
-        io.sockets.emit("Server-send-mau",data);
+    socket.on("user-send-message",function(data){
+        //console.log(data);
+        io.sockets.emit("server-send-message",{un:socket.Username,nd:data});
     })
+    socket.on("toi-dang-go-chu",function(data){
+        var s=socket.Username+" đang gõ chữ";
+        io.sockets.emit("ai-do-dang-go",s);
+       // io.sockets.emit("server-send-message",{un:socket.Username,nd:data});
+    });
+    socket.on("toi-stop-go-chu",function(data){
+        var s=socket.Username+" dừng gõ chữ";
+        io.sockets.emit("ai-do-stop-go-chu",s);
+       // io.sockets.emit("server-send-message",{un:socket.Username,nd:data});
+    });
 })
 app.get("/",function(rep,res){
     res.render("chat");
