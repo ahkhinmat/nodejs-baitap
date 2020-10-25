@@ -18,7 +18,7 @@ socket.on("server-send-message",function(data){
 $("#listMessages").append("<div class='ms'>"+data.un+":"+data.nd+"</div>");
 });
 socket.on("ai-do-dang-go",function(data){
-    $("#thongbao").html(data);
+    $("#thongbao").html("<img width='50px' src='typing.gif'/>"+data);
 });
 socket.on("ai-do-stop-go-chu",function(data){
     $("#thongbao").html(data);
