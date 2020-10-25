@@ -49,7 +49,18 @@ io.on("connection",function(socket){
     });
     socket.on("tao-room",function(data){
          socket.join(data);
+         socket.Phong=data;
          console.dir(socket.adapter.rooms);
+         var mang=[];
+         for (r in socket.adapter.rooms){
+             console.log(r);
+             mang.push(r);
+         }
+         io.sockets.emit("server-send-room",mang);
+         socket.emit("server-send-room-soket",data);
+    });
+    socket.on("user-chat",function(data){
+        io.sockets.in(socket.Phong).emit("server-chat",data);
     })
 })
 app.get("/",function(rep,res){

@@ -22,6 +22,19 @@ socket.on("ai-do-dang-go",function(data){
 });
 socket.on("ai-do-stop-go-chu",function(data){
     $("#thongbao").html(data);
+});
+socket.on("server-send-room",function(data){
+    $("#dsRoom").html("");
+    data.map(function(r){
+        
+        $("#dsRoom").append("<h4 classs='room'>"+r+"</h4>");
+    });
+});
+socket.on("server-send-room-soket",function (data){
+    $("#roomHienTai").html(data);
+});
+socket.on("server-chat",function(data){
+    $("#phai").append("<div>"+data+"</div>");
 })
 $(document).ready(function () {
         $("#loginForm").show();
@@ -45,5 +58,8 @@ $(document).ready(function () {
         });
         $("#btnTaoroom").click(function(){
             socket.emit("tao-room",$("#txtRoom").val());
+        });
+        $("#btnChat").click(function(){
+            socket.emit("user-chat",$("#txtMessageChat").val());
         })
 })
