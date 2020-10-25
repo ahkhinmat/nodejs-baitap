@@ -8,11 +8,12 @@
 
     </style>
     <script src="jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="xuly.js"></script>
-    <script src="socket.io/socket.io.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="layout.css"/>
     <script>
-   
+  
       
     </script>
 </head>
@@ -24,7 +25,23 @@
             <input type="button" value="Register" id="btnRegister"/>
         </div>
         <div id="chatForm">
+            <div id="left">
+                <div id="boxTitle">Users online</div>
+                <div id="boxContent"> 
+                    
+                </div>
+            </div>
+            <div id="right">
+                <div id="sayHi">
+                    Hello <span id="currentUser">Tèo</span>
+                    <input id="btnLogOut" type="button" value="Logout"/>
+                 </div>
+                 <div id="listMessages">
 
+                 </div>
+                 <input id="txtMessage" type="text"/>
+                 <input type="button" id="btnSendMessage" value="Send"/>
+            </div>
         </div>
     </div>
 </body>

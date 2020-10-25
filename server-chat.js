@@ -6,8 +6,22 @@ app.set("views","./views");
 var server=require("http").Server(app);
 server.listen(3000);
 var io=require("socket.io")(server);
+var mangUers=["AAA"];
 io.on("connection",function(socket){
     console.log("có người kết nối "+ socket.id);
+
+    socket.on("Client-send-username",function(data){
+        console.log(data);
+        if(mangUers.indexOf(data)>=0){
+            //đăng ký thất baị
+            socket.emit("server-send-dangky-thatbai");
+        }else{//đăng ký thành công
+            socket.Username=data;
+            mangUers.push(data);
+            socket.emit("server-send-dangky-thanhcong",data);//thông báo riêng người thành công
+            io.sockets.emit("server-send-danhsach-users",mangUers);
+        }
+    })
     socket.on("disconnect",function(){
         console.log(socket.id+" Ngắt kết nối");
     });
