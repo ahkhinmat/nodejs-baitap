@@ -4,10 +4,26 @@
     </title>
     <head>
             <script src="jquery.js"></script>
-            <script src="socket.io/socket.io.js"></script>
+            <script src="https://hmdntool.herokuapp.com/socket.io/socket.io.js"></script>
             <script src="xuly.js"></script>
             <link rel="stylesheet" type="text/css" href="layout.css"/>
 
     </head>
+    <body>
+        <div id="wrapper">
+            <div id="info">
+                <input type="text" id="txtHoten" placeholder="Họ tên"/>
+                <input type="text" id="txtEmail" placeholder="Email"/>
+                <input type="text" id="txtPhone" placeholder="Điện thoại"/>
+                <input type="button" id="btnSend" value="Gởi"/>
+            </div>
+            <div id="listUsers">
+                 <h3>Danh sách thành viên</h3>
+                 <div id="dshocvien">
+                   
+                 </div>
+            </div>
+        </div>
+    </body>
 
 </html>
